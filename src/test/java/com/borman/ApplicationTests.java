@@ -1,4 +1,4 @@
-package com.borman.REST.API.SWAGGER;
+package com.borman;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

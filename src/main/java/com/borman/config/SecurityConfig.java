@@ -3,6 +3,7 @@ package com.borman.config;
 import com.borman.service.SpringDataUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -32,8 +33,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
 //                .antMatchers("/register/**", "/login/**", "/").not().fullyAuthenticated()
                 .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/charity/**").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/drive/**").hasRole("USER")
                 .antMatchers("/register/**", "/login/**", "/").permitAll()
+                .antMatchers(
+                        HttpMethod.GET,
+                        "/v2/api-docs",
+                        "/swagger-resources/**",
+                        "/swagger-ui.html**",
+                        "/webjars/**",
+                        "favicon.ico"
+                        ).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -53,24 +62,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) {
         web
                 .ignoring()
-                .antMatchers("/resources/**", "/css/**", "/js/**", "/images/**", "/views/**");
+                .antMatchers(
+                        "/resources/**",
+                        "/css/**",
+                        "/js/**",
+                        "/images/**",
+                        "/views/**");
     }
-
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http.authorizeRequests()
-//                .antMatchers("/", "/register/**").permitAll()
-//                .antMatchers("/admin/**").hasRole("ADMIN")
-//                .antMatchers("/user/**").hasRole("USER")
-//                .and().formLogin()
-//                .defaultSuccessUrl("/", true)
-//                .and()
-//                .logout()
-//                .logoutSuccessUrl("/")
-//                .and()
-//                .exceptionHandling()
-//                .accessDeniedPage("/403");
-//    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth)

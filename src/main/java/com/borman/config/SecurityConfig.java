@@ -32,9 +32,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .disable()
                 .authorizeRequests()
 //                .antMatchers("/register/**", "/login/**", "/").not().fullyAuthenticated()
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/drive/**").hasRole("USER")
-                .antMatchers("/register/**", "/login/**", "/").permitAll()
+                .antMatchers("/api/admin/**").hasRole("ADMIN")
+                .antMatchers("/api/drive/**").hasRole("USER")
+                .antMatchers("/api/auth/signup/**", "/api/auth/login/**", "/").permitAll()
                 .antMatchers(
                         HttpMethod.GET,
                         "/v2/api-docs",
@@ -46,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/login")
+                .loginPage("/api/auth/login")
                 .defaultSuccessUrl("/", true)
                 .permitAll()
                 .and()

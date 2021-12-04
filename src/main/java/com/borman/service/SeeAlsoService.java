@@ -2,16 +2,15 @@ package com.borman.service;
 
 import com.borman.entity.SeeAlso;
 import com.borman.repository.SeeAlsoRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
 public class SeeAlsoService {
 
     private final SeeAlsoRepository seeAlsoRepository;
 
-    public SeeAlsoService(SeeAlsoRepository seeAlsoRepository) {
-        this.seeAlsoRepository = seeAlsoRepository;
-    }
 
     public SeeAlso getSeeAlsoById(Long id) {
         return seeAlsoRepository.getById(id);

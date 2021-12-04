@@ -3,6 +3,7 @@ package com.borman.service;
 import com.borman.entity.Role;
 import com.borman.entity.User;
 import com.borman.repository.UserRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -10,17 +11,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service
+@AllArgsConstructor
 public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
     private final RoleService roleService;
     private final BCryptPasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository, RoleService roleService, BCryptPasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.roleService = roleService;
-        this.passwordEncoder = passwordEncoder;
-    }
 
     @Override
     public User findUserByEmail(String email) {

@@ -2,16 +2,14 @@ package com.borman.service;
 
 import com.borman.entity.Tag;
 import com.borman.repository.TagRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-@Service
-public class TagService {
+
+@AllArgsConstructor public class TagService {
 
     private final TagRepository tagRepository;
 
-    public TagService(TagRepository tagRepository) {
-        this.tagRepository = tagRepository;
-    }
 
     public Tag getTagById(Long id) {
         return tagRepository.getById(id);

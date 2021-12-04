@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         HttpMethod.GET,
                         "/v2/api-docs",
                         "/swagger-resources/**",
-                        "/swagger-ui.html**",
+                        "/swagger-ui/**",
                         "/webjars/**",
                         "favicon.ico"
                         ).permitAll()

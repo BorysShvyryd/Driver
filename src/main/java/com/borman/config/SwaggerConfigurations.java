@@ -11,7 +11,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 public class SwaggerConfigurations {
 
 //    @Bean
-//    public Docket api() {
+//    public Docket swagger() {
 //        return new Docket(DocumentationType.SWAGGER_2)
 //                .select()
 //                .apis(RequestHandlerSelectors.basePackage("com.borman.controller"))
@@ -27,4 +27,5 @@ public class SwaggerConfigurations {
                 .paths(PathSelectors.any())
                 .build();
     }
+
 }

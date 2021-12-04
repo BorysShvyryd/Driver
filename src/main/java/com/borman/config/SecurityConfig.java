@@ -34,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/register/**", "/login/**", "/").not().fullyAuthenticated()
                 .antMatchers("/api/admin/**").hasRole("ADMIN")
                 .antMatchers("/api/drive/**").hasRole("USER")
-                .antMatchers("/api/auth/signup/**", "/api/auth/login/**", "/").permitAll()
+                .antMatchers("/api/auth/signup/**", "/api/auth/login/**", "/api").permitAll()
                 .antMatchers(
                         HttpMethod.GET,
                         "/v2/api-docs",

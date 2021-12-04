@@ -9,4 +9,5 @@ Project architect: [*Borys Shvyryd*](https://github.com/BorysShvyryd)
 * Spring Boot
 * REST API
 * Swagger
+* DTO
 * ...

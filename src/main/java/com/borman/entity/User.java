@@ -28,8 +28,10 @@ public class User {
 
     @ManyToMany
     private Set<Role> roles;
+
     private int enabled;
 
     private String nickname;
+
     private int numberOfPoints;
 }

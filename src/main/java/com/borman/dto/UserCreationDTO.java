@@ -14,21 +14,11 @@ public class UserCreationDTO {
     private String password;
     private String nickname;
 
-    public User userDtoToUser(UserCreationDTO userDTO) {
+    public User userCreationDTOToUser(UserCreationDTO userDTO) {
         User user = new User();
         user.setEmail(userDTO.getEmail());
         user.setNickname(userDTO.getNickname());
         user.setPassword(userDTO.getPassword());
         return user;
-    }
-
-    public UserDTO UserToUserDto(User user) {
-        return UserDTO.builder()
-                .email(user.getEmail())
-                .nickname(user.getNickname())
-                .roles(user.getRoles())
-                .enabled(user.getEnabled())
-                .numberOfPoints(user.getNumberOfPoints())
-                .build();
     }
 }

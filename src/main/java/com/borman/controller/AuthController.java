@@ -2,6 +2,7 @@ package com.borman.controller;
 
 import com.borman.dto.UserCreationDTO;
 import com.borman.dto.UserDTO;
+import com.borman.dto.UserLoginDTO;
 import com.borman.entity.Role;
 import com.borman.entity.User;
 import com.borman.service.EmailService;
@@ -26,8 +27,8 @@ public class AuthController {
     private final RoleService roleService;
 
     @PostMapping("/login")
-    public User login(@RequestBody UserDTO userDTO){
-        return userDTO.userDTOToUser(userDTO);
+    public void login(@RequestBody UserLoginDTO userLoginDTO){
+
     }
 
     @PostMapping("/signup")

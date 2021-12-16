@@ -24,12 +24,16 @@ public class AdviceService {
 //        return adviceRepository.findAll().stream().limit(1).collect(Collectors.toList());
     }
 
-    public void saveAdvice(Advice advice) {
-        adviceRepository.save(advice);
+    public Advice saveAdvice(Advice advice) {
+        return adviceRepository.save(advice);
     }
 
     public void deleteAdvice(Advice advice) {
         adviceRepository.delete(advice);
+    }
+
+    public void deleteAdviceById(Long id) {
+        adviceRepository.deleteById(id);
     }
 
 }

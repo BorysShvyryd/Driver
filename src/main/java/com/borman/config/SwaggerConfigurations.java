@@ -35,7 +35,7 @@ public class SwaggerConfigurations {
         return new ApiInfo(
                 "Drive API specification",
                 "Drive REST APIs",
-                "1.0.1",
+                "1.0.0",
                 "",
                 null,
                 "License of API",

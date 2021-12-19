@@ -1,7 +1,6 @@
 package com.borman.controller;
 
 import com.borman.dto.UserCreationDTO;
-import com.borman.dto.UserDTO;
 import com.borman.dto.UserLoginDTO;
 import com.borman.entity.Role;
 import com.borman.entity.User;
@@ -10,6 +9,7 @@ import com.borman.service.JwtProvider;
 import com.borman.service.RoleService;
 import com.borman.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,28 +27,29 @@ public class AuthController {
     private final RoleService roleService;
 
     @PostMapping("/login")
-    public void login(@RequestBody UserLoginDTO userLoginDTO){
-
+    public User login(@RequestBody UserLoginDTO userLoginDTO){
+        return userLoginDTO.userLoginDTOToUser(userLoginDTO);
     }
 
     @PostMapping("/signup")
-    public void verificationUserEmail(@RequestBody UserDTO userDTO, HttpServletRequest request) {
+    public ResponseEntity<String> verificationUserEmail(@RequestBody String email, HttpServletRequest request) {
 
-        if (userService.findUserByEmail(userDTO.getEmail()) != null) {
-
+        if (userService.findUserByEmail(email) != null) {
+            return ResponseEntity.status(1).build();
         }
 
-        if (!userDTO.getEmail().matches("[_a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*\\.([a-zA-Z]{2,}){1}")) {
-
+        if (!email.matches("[_a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*\\.([a-zA-Z]{2,}){1}")) {
+            return ResponseEntity.notFound().build();
         }
 
-        String token = jwtProvider.generateToken(userDTO.getEmail());
-        emailService.SendEmail(userDTO.getEmail()
+        String token = jwtProvider.generateToken(email);
+        emailService.SendEmail(email
                 , "Service DRIVE"
                 , "Aby uzyskać dalszą rejestrację, kliknij link: https://" +
                         request.getHeader("host") +
                         "/api/auth/signup/" +
                         token);
+        return ResponseEntity.ok().body("ok");
     }
 
     @PostMapping("/signup/{token}")

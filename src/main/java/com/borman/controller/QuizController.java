@@ -18,8 +18,11 @@ public class QuizController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Test> quizTip(@PathVariable Long id) {
+        final Test test = testService.getTestById(id);
 
-        return ResponseEntity.ok(testService.getTestById(id));
+        return test != null
+                ? ResponseEntity.ok().body(test)
+                : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")

@@ -38,6 +38,10 @@ public class AdviceService {
         adviceRepository.deleteById(id);
     }
 
+    public boolean existById(Long id) {
+        return adviceRepository.existsById(id);
+    }
+
     public Advice getTipForToday() {
         int numberTips = adviceRepository.findAll().size();
         if (numberTips > 0) {

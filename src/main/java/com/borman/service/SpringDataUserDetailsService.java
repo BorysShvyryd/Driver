@@ -2,7 +2,6 @@ package com.borman.service;
 
 import com.borman.entity.Role;
 import com.borman.entity.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,15 +17,11 @@ public class SpringDataUserDetailsService implements UserDetailsService {
 
     private UserService userService;
 
-//    @Autowired
-//    public void setUserRepository(UserService userService) {
-//        this.userService = userService;
-//    }
 
     @Override
     public UserDetails loadUserByUsername(String username) {
 
-        User user = new User();//userService.findByUserName(username);
+        User user = userService.findUserByEmail(username);
 
         if (user == null) {throw new UsernameNotFoundException(username); }
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();

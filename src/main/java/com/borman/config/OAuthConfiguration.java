@@ -1,6 +1,6 @@
 package com.borman.config;
 
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,8 +13,9 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
+import javax.sql.DataSource;
+
 @Configuration
-//@AllArgsConstructor
 @EnableAuthorizationServer
 public class OAuthConfiguration extends AuthorizationServerConfigurerAdapter {
 
@@ -24,23 +25,26 @@ public class OAuthConfiguration extends AuthorizationServerConfigurerAdapter {
 
     private final UserDetailsService userService;
 
+    @Autowired
+    private DataSource dataSource;
 
-    @Value("${jwt.clientId:glee-o-meter}")
+
+    @Value("${jwt.clientId}")
     private String clientId;
 
-    @Value("${jwt.client-secret:secret}")
+    @Value("${jwt.client-secret}")
     private String clientSecret;
 
-    @Value("${jwt.signing-key:123}")
-    private String jwtSigningKey;
+//    @Value("${jwt.signing-key}")
+//    private String jwtSigningKey;
 
-    @Value("${jwt.accessTokenValidititySeconds:43200}") // 12 hours
+    @Value("${jwt.accessTokenValiditySeconds}")
     private int accessTokenValiditySeconds;
 
-    @Value("${jwt.authorizedGrantTypes:password,authorization_code,refresh_token}")
+    @Value("${jwt.authorizedGrantTypes}")
     private String[] authorizedGrantTypes;
 
-    @Value("${jwt.refreshTokenValiditySeconds:2592000}") // 30 days
+    @Value("${jwt.refreshTokenValiditySeconds}")
     private int refreshTokenValiditySeconds;
 
     public OAuthConfiguration(AuthenticationManager authenticationManager, PasswordEncoder passwordEncoder, UserDetailsService userService) {
@@ -52,7 +56,8 @@ public class OAuthConfiguration extends AuthorizationServerConfigurerAdapter {
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.inMemory()
+        clients.jdbc(dataSource)
+//        clients.inMemory()
                 .withClient(clientId)
                 .secret(passwordEncoder.encode(clientSecret))
                 .accessTokenValiditySeconds(accessTokenValiditySeconds)
@@ -72,8 +77,7 @@ public class OAuthConfiguration extends AuthorizationServerConfigurerAdapter {
 
     @Bean
     JwtAccessTokenConverter accessTokenConverter() {
-        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        return converter;
+        return new JwtAccessTokenConverter();
     }
 
 }

@@ -9,9 +9,6 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
 import java.util.Collections;
-import java.util.function.Predicate;
-
-import static springfox.documentation.builders.PathSelectors.regex;
 
 @Configuration
 public class SwaggerConfigurations {
@@ -27,9 +24,9 @@ public class SwaggerConfigurations {
                 .apiInfo(apiInfo());
     }
 
-    private Predicate<String> paths() {
-        return regex("/api/.*");
-    }
+//    private Predicate<String> paths() {
+//        return regex("/api/.*");
+//    }
 
     private ApiInfo apiInfo() {
         return new ApiInfo(
